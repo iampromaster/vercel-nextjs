@@ -23,7 +23,7 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
           color: "white",
           padding: "4px 8px",
         }}>
-        きょうのにゃんこ🐱
+        きょうの猫🐱
       </button>
       <div style={{ marginTop: 8, maxWidth: 500 }}>
         <img src={catImageUrl} width="100%" height="auto" alt="猫" />
