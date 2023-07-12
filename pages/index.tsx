@@ -1,6 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useEffect, useState } from "react";
-import styles from "./index.module.css";
+import { useState } from "react";
 
 type Props = {
   initialImageUrl: string;
@@ -8,28 +7,27 @@ type Props = {
 
 const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
   // ❶ useStateを使って状態を定義する
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
-  const [loading, setLoading] = useState(false);
-  // ❷ マウント時に画像を読み込む宣言
-  useEffect(() => {
-    fetchImage().then((newImage) => {
-      setImageUrl(newImage.url); // 画像URLの状態を更新する
-      setLoading(false); // ローディング状態を更新する
-    });
-  }, []);
+  const [catImageUrl, setCatImageUrl] = useState(initialImageUrl);
   const handleClick = async () => {
-    setLoading(true);
-    const newImaage = await fetchImage();
-    setImageUrl(newImaage.url);
-    setLoading(false);
+    const image = await fetchImage();
+    setCatImageUrl(image.url);
   };
-  // ❸ ローディング中でなければ、画像を表示する
   return (
-    <div className={styles.page}>
-      <button onClick={handleClick} className={styles.button}>
-        他のにゃんこも見る
+    <div>
+      <button
+        onClick={handleClick}
+        style={{
+          backgroundColor: "#319795",
+          border: "none",
+          borderRadius: "4px",
+          color: "white",
+          padding: "4px 8px",
+        }}>
+        きょうのにゃんこ🐱
       </button>
-      <div className={styles.frame}>{loading || <img src={imageUrl} className={styles.img} />}</div>
+      <div style={{ marginTop: 8, maxWidth: 500 }}>
+        <img src={catImageUrl} width="100%" height="auto" alt="猫" />
+      </div>
     </div>
   );
 };
